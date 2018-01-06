@@ -1,0 +1,20 @@
+/home/ubuntu/klee/Release+Asserts/bin/klee --only-output-states-covering-new point_struct.bc
+PID: 2322
+Started: 2017-09-23 19:31:07
+BEGIN searcher description
+<InterleavedSearcher> containing 2 searchers:
+RandomPathSearcher
+WeightedRandomSearcher::CoveringNew
+</InterleavedSearcher>
+END searcher description
+Finished: 2017-09-23 19:31:07
+Elapsed: 00:00:00
+KLEE: done: explored paths = 1
+KLEE: done: total queries = 0
+KLEE: done: valid queries = 0
+KLEE: done: invalid queries = 0
+KLEE: done: query cex = 0
+
+KLEE: done: total instructions = 11
+KLEE: done: completed paths = 1
+KLEE: done: generated tests = 1
