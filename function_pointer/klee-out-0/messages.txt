@@ -1,0 +1,3 @@
+KLEE: Using STP solver backend
+KLEE: ERROR: /home/ubuntu/function_pointer/point_struct.c:33: wrong size given to klee_make_symbolic[_name]
+KLEE: NOTE: now ignoring this error at this location
