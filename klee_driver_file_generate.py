@@ -23,7 +23,12 @@ def find_Write_Out(directory, func, filePattern, output_file):
                                 variable_name = argument.split(" ").pop()
                                 variable_name = variable_name.replace("*", "")
                                 f1 = open(output_file, 'a')
-                                f1.write(argument+ ";" + "\n")
+                                #complete malloc
+                                #argument = argument[1:]
+                                argument_temp = argument
+                                argument_temp = argument_temp.replace("*", "")
+                                argument_temp = argument_temp.rsplit(" ", 1)[0]
+                                f1.write(argument+" = malloc(sizeof ("+argument_temp+"));" + "\n")
                                 f1.write("klee_make_symbolic(&"+variable_name+", sizeof("+variable_name+"), \""+variable_name+"\");")
                                 f1.write("\n")
                             f1.write(func + "(")
@@ -60,7 +65,9 @@ if __name__ == "__main__":
     func_list = open("/Users/williams/Desktop/ECE496/dogeprojiang/ece496M1testcase/funcList.txt", "r")
     output_file = "output.txt"
 
+
     f1 = open(output_file, 'w')
+    f1.write('#include <klee/klee.h> \n\n')
     f1.write('int main() { \n\n')
     f1.close()
 
