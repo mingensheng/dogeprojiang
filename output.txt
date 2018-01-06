@@ -1,0 +1,113 @@
+int main() { 
+
+//char* testCombo6(char a[], float b, int (*funcp) (int, int));
+char a[];
+klee_make_symbolic(&a[], sizeof(a[]), "a[]");
+ float b;
+klee_make_symbolic(&b, sizeof(b), "b");
+ int (*funcp) (int;
+klee_make_symbolic(&(int, sizeof((int), "(int");
+ int);
+klee_make_symbolic(&int), sizeof(int)), "int)");
+testCombo6(a[], b, (int, int));
+
+
+//int testPtrs(struct foo *fooPtr, char* arr);
+struct foo *fooPtr;
+klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
+ char* arr;
+klee_make_symbolic(&arr, sizeof(arr), "arr");
+testPtrs(fooPtr, arr);
+
+
+//int testStructPtr(struct foo *foo_ptr);
+struct foo *foo_ptr;
+klee_make_symbolic(&foo_ptr, sizeof(foo_ptr), "foo_ptr");
+testStructPtr(foo_ptr);
+
+
+//float testCombo3(struct foo *fooPtr, int (*funcp) (int, int));
+struct foo *fooPtr;
+klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
+ int (*funcp) (int;
+klee_make_symbolic(&(int, sizeof((int), "(int");
+ int);
+klee_make_symbolic(&int), sizeof(int)), "int)");
+testCombo3(fooPtr, (int, int));
+
+
+//int testFloat(float a);
+float a;
+klee_make_symbolic(&a, sizeof(a), "a");
+testFloat(a);
+
+
+//int testFuncPtr (int (*funcp) (int, int), int a);
+int (*funcp) (int;
+klee_make_symbolic(&(int, sizeof((int), "(int");
+ int);
+klee_make_symbolic(&int), sizeof(int)), "int)");
+ int a;
+klee_make_symbolic(&a, sizeof(a), "a");
+testFuncPtr((int, int), a);
+
+
+//int testFuncPtr(int (*funcp) (int, int), int a);
+int (*funcp) (int;
+klee_make_symbolic(&(int, sizeof((int), "(int");
+ int);
+klee_make_symbolic(&int), sizeof(int)), "int)");
+ int a;
+klee_make_symbolic(&a, sizeof(a), "a");
+testFuncPtr((int, int), a);
+
+
+//float testVoidPtr(void *ptr);
+void *ptr;
+klee_make_symbolic(&ptr, sizeof(ptr), "ptr");
+testVoidPtr(ptr);
+
+
+//int testCombo9(int (*funcp) (int, int), void* ptr);
+int (*funcp) (int;
+klee_make_symbolic(&(int, sizeof((int), "(int");
+ int);
+klee_make_symbolic(&int), sizeof(int)), "int)");
+ void* ptr;
+klee_make_symbolic(&ptr, sizeof(ptr), "ptr");
+testCombo9((int, int), ptr);
+
+
+//int testCombo7(int a, char* b, char[] c, struct foo *fooPtr);
+int a;
+klee_make_symbolic(&a, sizeof(a), "a");
+ char* b;
+klee_make_symbolic(&b, sizeof(b), "b");
+ char[] c;
+klee_make_symbolic(&c, sizeof(c), "c");
+ struct foo *fooPtr;
+klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
+testCombo7(a, b, c, fooPtr);
+
+
+//char testDouble(double a);
+double a;
+klee_make_symbolic(&a, sizeof(a), "a");
+testDouble(a);
+
+
+//int testPtr(char* ptr);
+char* ptr;
+klee_make_symbolic(&ptr, sizeof(ptr), "ptr");
+testPtr(ptr);
+
+
+//int testPtrs(struct foo *fooPtr, char* arr);
+struct foo *fooPtr;
+klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
+ char* arr;
+klee_make_symbolic(&arr, sizeof(arr), "arr");
+testPtr(fooPtr, arr);
+
+
+} 
