@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import os, sys, fnmatch, re
+import os, sys, fnmatch, re, csv, shutil
 
 
 def find_Write_Out(directory, func, filePattern, output_file):
@@ -18,7 +18,9 @@ def find_Write_Out(directory, func, filePattern, output_file):
                             f1.write("//"+file_line)
                             f1.close()
                             #seperate arguments
-                            arguments = m.group(1).split(",")
+                            arguments = temp = re.split(r',\s*(?![^()]*\))', m.group(1))
+                            #arguments = m.group(1).split(",")
+
                             for argument in arguments:
                                 variable_name = argument.split(" ").pop()
                                 variable_name = variable_name.replace("*", "")
@@ -63,22 +65,30 @@ def find_Write_Out(directory, func, filePattern, output_file):
 
 if __name__ == "__main__":
     func_list = open("/Users/williams/Desktop/ECE496/dogeprojiang/ece496M1testcase/funcList.txt", "r")
-    output_file = "output.txt"
+    if not os.path.exists ("main_driver_file"):
+        os.mkdir("main_driver_file")
+    else:
+        shutil.rmtree("main_driver_file")
+        os.mkdir("main_driver_file")
 
 
-    f1 = open(output_file, 'w')
-    f1.write('#include <klee/klee.h> \n\n')
-    f1.write('int main() { \n\n')
-    f1.close()
-
+    #TODO, func name in func list has to strictly be the same
     for func in func_list:
         func = func.rstrip();
+        #output_file = func+"main_driver_file.c"
+        output_file = os.path.join('main_driver_file', func+"_main_driver_file.c")
+        f1 = open(output_file, 'w')
+        f1.write('#include <klee/klee.h> \n\n')
+        f1.write('int main() { \n\n')
+        f1.close()
+
         find_Write_Out(os.getcwd(), func, "*.h", output_file)
+        
+        f1 = open(output_file, 'a')
+        f1.write('} \n')
+        f1.close()
 
 
-    f1 = open(output_file, 'a')
-    f1.write('} \n')
-    f1.close()
 
 
 

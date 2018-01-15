@@ -2,22 +2,20 @@
 
 int main() { 
 
-//char* testCombo6(char a[], float b, int (*funcp) (int, int));
+//char* testCombo6(char a[], float b, function func);
 char a[] = malloc(sizeof (char));
 klee_make_symbolic(&a[], sizeof(a[]), "a[]");
- float b = malloc(sizeof ( float));
+float b = malloc(sizeof (float));
 klee_make_symbolic(&b, sizeof(b), "b");
- int (*funcp) (int = malloc(sizeof ( int (funcp)));
-klee_make_symbolic(&(int, sizeof((int), "(int");
- int) = malloc(sizeof ());
-klee_make_symbolic(&int), sizeof(int)), "int)");
-testCombo6(a[], b, (int, int));
+function func = malloc(sizeof (function));
+klee_make_symbolic(&func, sizeof(func), "func");
+testCombo6(a[], b, func);
 
 
 //int testPtrs(struct foo *fooPtr, char* arr);
 struct foo *fooPtr = malloc(sizeof (struct foo));
 klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
- char* arr = malloc(sizeof ( char));
+char* arr = malloc(sizeof (char));
 klee_make_symbolic(&arr, sizeof(arr), "arr");
 testPtrs(fooPtr, arr);
 
@@ -28,14 +26,12 @@ klee_make_symbolic(&foo_ptr, sizeof(foo_ptr), "foo_ptr");
 testStructPtr(foo_ptr);
 
 
-//float testCombo3(struct foo *fooPtr, int (*funcp) (int, int));
+//float testCombo3(struct foo *fooPtr, function func);
 struct foo *fooPtr = malloc(sizeof (struct foo));
 klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
- int (*funcp) (int = malloc(sizeof ( int (funcp)));
-klee_make_symbolic(&(int, sizeof((int), "(int");
- int) = malloc(sizeof ());
-klee_make_symbolic(&int), sizeof(int)), "int)");
-testCombo3(fooPtr, (int, int));
+function func = malloc(sizeof (function));
+klee_make_symbolic(&func, sizeof(func), "func");
+testCombo3(fooPtr, func);
 
 
 //int testFloat(float a);
@@ -44,24 +40,14 @@ klee_make_symbolic(&a, sizeof(a), "a");
 testFloat(a);
 
 
-//int testFuncPtr (int (*funcp) (int, int), int a);
-int (*funcp) (int = malloc(sizeof (int (funcp)));
-klee_make_symbolic(&(int, sizeof((int), "(int");
- int) = malloc(sizeof ());
-klee_make_symbolic(&int), sizeof(int)), "int)");
- int a = malloc(sizeof ( int));
+//int testFuncPtr (int a, function call_back, int b);
+int a = malloc(sizeof (int));
 klee_make_symbolic(&a, sizeof(a), "a");
-testFuncPtr((int, int), a);
-
-
-//int testFuncPtr(int (*funcp) (int, int), int a);
-int (*funcp) (int = malloc(sizeof (int (funcp)));
-klee_make_symbolic(&(int, sizeof((int), "(int");
- int) = malloc(sizeof ());
-klee_make_symbolic(&int), sizeof(int)), "int)");
- int a = malloc(sizeof ( int));
-klee_make_symbolic(&a, sizeof(a), "a");
-testFuncPtr((int, int), a);
+function call_back = malloc(sizeof (function));
+klee_make_symbolic(&call_back, sizeof(call_back), "call_back");
+int b = malloc(sizeof (int));
+klee_make_symbolic(&b, sizeof(b), "b");
+testFuncPtr(a, call_back, b);
 
 
 //float testVoidPtr(void *ptr);
@@ -70,26 +56,24 @@ klee_make_symbolic(&ptr, sizeof(ptr), "ptr");
 testVoidPtr(ptr);
 
 
-//int testCombo9(int (*funcp) (int, int), void* ptr);
-int (*funcp) (int = malloc(sizeof (int (funcp)));
-klee_make_symbolic(&(int, sizeof((int), "(int");
- int) = malloc(sizeof ());
-klee_make_symbolic(&int), sizeof(int)), "int)");
- void* ptr = malloc(sizeof ( void));
+//int testCombo9(function func, void* ptr);
+function func = malloc(sizeof (function));
+klee_make_symbolic(&func, sizeof(func), "func");
+void* ptr = malloc(sizeof (void));
 klee_make_symbolic(&ptr, sizeof(ptr), "ptr");
-testCombo9((int, int), ptr);
+testCombo9(func, ptr);
 
 
-//int testCombo7(int a, char* b, char[] c, struct foo *fooPtr);
+//int testCombo7(int a, char* b, char c[], struct foo *fooPtr);
 int a = malloc(sizeof (int));
 klee_make_symbolic(&a, sizeof(a), "a");
- char* b = malloc(sizeof ( char));
+char* b = malloc(sizeof (char));
 klee_make_symbolic(&b, sizeof(b), "b");
- char[] c = malloc(sizeof ( char[]));
-klee_make_symbolic(&c, sizeof(c), "c");
- struct foo *fooPtr = malloc(sizeof ( struct foo));
+char c[] = malloc(sizeof (char));
+klee_make_symbolic(&c[], sizeof(c[]), "c[]");
+struct foo *fooPtr = malloc(sizeof (struct foo));
 klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
-testCombo7(a, b, c, fooPtr);
+testCombo7(a, b, c[], fooPtr);
 
 
 //char testDouble(double a);
@@ -107,7 +91,7 @@ testPtr(ptr);
 //int testPtrs(struct foo *fooPtr, char* arr);
 struct foo *fooPtr = malloc(sizeof (struct foo));
 klee_make_symbolic(&fooPtr, sizeof(fooPtr), "fooPtr");
- char* arr = malloc(sizeof ( char));
+char* arr = malloc(sizeof (char));
 klee_make_symbolic(&arr, sizeof(arr), "arr");
 testPtr(fooPtr, arr);
 
