@@ -1,3 +1,0 @@
-KLEE: Using STP solver backend
-KLEE: ERROR: /home/ubuntu/test_so/main.c:10: external call with symbolic argument: foo
-KLEE: NOTE: now ignoring this error at this location

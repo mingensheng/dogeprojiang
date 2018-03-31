@@ -1,6 +1,0 @@
-Error: external call with symbolic argument: foo
-File: /home/ubuntu/test_so/main.c
-Line: 10
-assembly.ll line: 25
-Stack: 
-	#000000025 in main () at /home/ubuntu/test_so/main.c:10

@@ -1,6 +1,0 @@
-Error: wrong size given to klee_make_symbolic[_name]
-File: /home/ubuntu/function_pointer/point_struct.c
-Line: 33
-assembly.ll line: 87
-Stack: 
-	#000000087 in main () at /home/ubuntu/function_pointer/point_struct.c:33

@@ -1,1 +1,0 @@
-1. run klee_driver_file_generate.py to extract function declaration from funclist and construct klee main driver file corresponding to each function under directory './main_driver_file'

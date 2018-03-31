@@ -1,3 +1,0 @@
-KLEE: Using STP solver backend
-KLEE: ERROR: /home/ubuntu/test_pointer/point_struct.c:12: memory error: out of bound pointer
-KLEE: NOTE: now ignoring this error at this location
