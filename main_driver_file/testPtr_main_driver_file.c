@@ -1,8 +1,10 @@
 #include <klee/klee.h> 
+#include <stdio.h> 
+//!!!!!!!!!!!!!function:testPtris not found
+#include "/home/klee/dogeprojiang/lib/dir1/testPointer.h"
 
 int main(int argc, char** argv) { 
 
-//!!!!!!!!!!!!!function:testPtris not found
 //int testPtr(char* ptr);
 char ptr;
 klee_make_symbolic(&ptr, sizeof(ptr), "ptr");

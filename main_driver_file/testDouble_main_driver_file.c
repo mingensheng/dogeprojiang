@@ -1,4 +1,6 @@
 #include <klee/klee.h> 
+#include <stdio.h> 
+#include "/home/klee/dogeprojiang/lib/testPrimitives.h"
 
 int main(int argc, char** argv) { 
 

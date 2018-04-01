@@ -28,6 +28,7 @@ replay:
 
 clean:
 	find . -name "*.bc" -type f -delete
+	rm -f ./bcfiles/*
 
 
 

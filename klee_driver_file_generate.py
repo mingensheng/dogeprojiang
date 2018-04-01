@@ -7,11 +7,15 @@ def find_Write_Out(directory, func, filePattern, output_file, decoder_file):
         for filename in fnmatch.filter(files, filePattern):
             filepath = os.path.join(path, filename)
             #print ("filepath"+filepath)
-            with open(filepath) as target_file:
+            with open(filepath, encoding='utf-8') as target_file:
                 for file_line in target_file:
                     #find the line of declaration in header file
                     if str(func) in file_line:
                         if file_line.split(func,1)[1][0] == '(':
+                            f1 = open(output_file, 'a')
+                            f1.write('#include \"'+filepath+'\"\n\n')
+                            f1.write('int main(int argc, char** argv) { \n\n')
+                            f1.close()
                         #if 1:
                             #find everything inside the outter brackets as arguments
                             m = re.search(r"\((.*?.*)\)", file_line)
@@ -43,7 +47,7 @@ def find_Write_Out(directory, func, filePattern, output_file, decoder_file):
                                     f1.write("\n")
 
 
-                                if "float" not in return_type and "int" not in return_type and "bool" not in return_type:
+                                if "float" not in return_type and "int" not in return_type and "bool" not in return_type and "double" not in return_type:
                                     f1.write("//return type is not supoorted by KLEE tool;\n")
                                 else:
                                     f1.write(return_type + " output = " + func + "(")
@@ -79,6 +83,8 @@ def find_Write_Out(directory, func, filePattern, output_file, decoder_file):
                                         f1.write("printf(\"output:%d \\n\", output);\n")
                                     elif "bool" in return_type:
                                         f1.write("printf(\"output:%d \\n\", output);\n")
+                                    elif "double" in return_type:
+                                        f1.write("printf(\"output:%f \\n\", output);\n")
                                     else:
                                         f1.write("//return type is not supoorted by KLEE tool;\n")
 
@@ -127,7 +133,7 @@ def find_Write_Out(directory, func, filePattern, output_file, decoder_file):
 
 
 if __name__ == "__main__":
-    func_list = open("lib/funcList.txt", "r")
+    func_list = open("./lib/funcList.txt", "r")
     if not os.path.exists ("main_driver_file"):
         os.mkdir("main_driver_file")
     else:
@@ -147,8 +153,8 @@ if __name__ == "__main__":
         func = func.rstrip();
         output_file = os.path.join('main_driver_file', func+"_main_driver_file.c")
         f1 = open(output_file, 'w')
-        f1.write('#include <klee/klee.h> \n\n')
-        f1.write('int main(int argc, char** argv) { \n\n')
+        f1.write('#include <klee/klee.h> \n')
+        f1.write('#include <stdio.h> \n')
         f1.close()
 
         find_Write_Out(os.getcwd(), func, "*.h", output_file, decoder_file)
