@@ -58,21 +58,24 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                 f1.write("      char **value_array = new char*["+str(arguments_num)+"];\n")
                                                 f1.write("      //set up value array\n")
                                                 for _itr in range(arguments_num):
-                                                    f1.write("      char* s"+ str(_itr) +"= (\""+lines[1+itr*(arguments_num+1)+_itr].strip()+"\");\n")
                                                     hex_s = lines[1+itr*(arguments_num+1)+_itr].strip()
                                                     # print("hex_s: "+hex_s)
                                                     #print("is it true %r" % all(c in string.hexdigits for c in hex_s))
                                                     #if (all(c in string.hexdigits for c in hex_s)) is True and len(hex_s) >= 2:
                                                     variable_type = arguments[_itr].split(" ")[0]
                                                     if 'char' not in variable_type:
-
-                                                        hex_len = bytearray.fromhex(lines[1 + itr * (arguments_num+1) + _itr].strip()).__len__()
+                                                        #hex_s = ''.join(map(str.__add__, hex_s[-2::-2] ,hex_s[-1::-2]))
+                                                        f1.write("      char* s" + str(_itr) + "= (\"" + hex_s + "\");\n")
+                                                        hex_len = bytearray.fromhex(hex_s).__len__()
                                                         f1.write("      value_array[" + str(_itr) + "] = new char[" + str(hex_len) + "];\n")
                                                         f1.write("      size_array["+str(_itr)+"] = "+str(hex_len)+";\n")
                                                         f1.write("      hex2bin(s" + str(_itr) + ", value_array[" + str(_itr) + "]"");\n")
                                                     else:
-                                                        f1.write("      "+arguments[_itr]+" = \'"+hex_s+"\';\n")
-
+                                                        f1.write("      char* s" + str(_itr) + "= (\"" + hex_s + "\");\n")
+                                                        f1.write("      "+arguments[_itr].split(" ", 1)[1]+" = \'"+hex_s+"\';\n")
+                                                        f1.write("      value_array[" + str(_itr) + "] = new char[1];\n")
+                                                        f1.write("      size_array[" + str(_itr) + "] = 1;\n")
+                                                        f1.write("      hex2bin(s" + str(_itr) + ", value_array[" + str(_itr) + "]"");\n")
                                                 f1 = open(decoder_file, 'a')
                                                 f1.write("      for(int i=0; i<"+str(arguments_num)+"; i++){\n")
                                                 f1.write("          ptrs[i] = new char[sizeof(*value_array[i])];\n")
