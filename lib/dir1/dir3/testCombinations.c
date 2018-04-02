@@ -30,42 +30,45 @@ int testCombo2(char a[], int b[], int* c)
 
 int testBranch(int a, int b, char opt){
     int output = 100;
-    if(a%b){
+    if (b == 0)
+	return output;
+
+    if(a == 5){//8
         switch(opt)
         {
             case 'a':
-                if(a>b)
+                if(b == 8)
                     output = 1;
                 else
                     output = 2;
                 break;
             case 'b':
                 //if(a<b)
-                    output = 3;
+                output = 3;
                /* else
                     output = 4;*/
                 break;
             default:
-                output = 0;
+                output = 4;
         }
     }
     else{
         switch(opt)
         {
             case 'a':
-                if(a>b)
-                    output = 4;
-                else
+                if(b == 6)
                     output = 5;
+                else
+                    output = 6;
                 break;
             case 'b':
-                if(a<b)
-                    output = 6;
-                else
+                if(b == 12)
                     output = 7;
+                else
+                    output = 8;
                 break;
             default:
-                output = 0;
+                output = 9;
         }
     }
     return output;
@@ -111,7 +114,7 @@ int testCombo5(struct foo *fooPtr)
     else
         return 3;
 }
-
+/*
 char* testCombo6(char a[], float b, function func)
 {
     char* ptr = malloc((int)floor(b));
@@ -125,6 +128,7 @@ char* testCombo6(char a[], float b, function func)
     }
     return ptr;
 }
+*/
 /*
 int testCombo7(int a, char* b, char c[], struct foo *fooPtr)
 {
