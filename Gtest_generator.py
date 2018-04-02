@@ -62,7 +62,9 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                     hex_s = lines[1+itr*(arguments_num+1)+_itr].strip()
                                                     # print("hex_s: "+hex_s)
                                                     #print("is it true %r" % all(c in string.hexdigits for c in hex_s))
-                                                    if (all(c in string.hexdigits for c in hex_s)) is True and len(hex_s) >= 2:
+                                                    #if (all(c in string.hexdigits for c in hex_s)) is True and len(hex_s) >= 2:
+                                                    variable_type = arguments[_itr].split(" ")[0]
+                                                    if 'char' not in variable_type:
                                                         hex_len = bytearray.fromhex(lines[1 + itr * (arguments_num+1) + _itr].strip()).__len__()
                                                         f1.write("      value_array[" + str(_itr) + "] = new char[" + str(hex_len) + "];\n")
                                                         f1.write("      size_array["+str(_itr)+"] = "+str(hex_len)+";\n")
