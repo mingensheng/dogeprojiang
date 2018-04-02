@@ -83,11 +83,11 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                         variable_name = argument.split(" ").pop()
                                                         variable_name = variable_name.replace("*", "")
                                                         f1.write("      memcpy(&"+variable_name+", ptrs["+str(iterator)+"], size_array["+str(iterator)+"]);\n")
-                                                        iterator = iterator + 1
-                                                        if argument == arguments[-1]:
-                                                            function_call_string+=(variable_name+")")
-                                                        else:
-                                                            function_call_string += (variable_name.replace("[]", "") + ", ")
+                                                    iterator = iterator + 1
+                                                    if argument == arguments[-1]:
+                                                        function_call_string+=(variable_name+")")
+                                                    else:
+                                                        function_call_string += (variable_name.replace("[]", "") + ", ")
                                                 f1.write("  }\n")
                                                 f1.write("};\n")
                                                 f1.write("TEST_F("+func+str(itr)+", gtest) {\n")
