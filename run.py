@@ -71,6 +71,27 @@ if __name__ == "__main__":
     else:
         print("!!!invoke.py finished, move on\n")
 
+
+    command1 = "python Gtest_generator.py "
+    process1 = Popen(command1, shell=True, stdout=PIPE, stderr=PIPE)
+    outs1, errs1 = process1.communicate()
+    rc = process1.returncode
+    outs1 = outs1.decode()
+    errs1 = errs1.decode()
+    name = "error/Gtest_generator_error.log"
+    fd = open(name, 'w')
+    fd.write("===================================errors=========================================\n\n")
+    fd.write(errs1)
+    fd.write("===================================outputs=========================================\n\n")
+    fd.write(outs1)
+    fd.close()
+    if rc != 0:
+        print("!!!Gtest_generator.py run failed, please check error log at ./error/Gtest_generator_error.log\n")
+    else:
+        print("!!!Gtest_generator.py finished, move on\n")
+
+
+
     command1 = "python compile_to_gtest.py"
     process1 = Popen(command1, shell=True, stdout=PIPE, stderr=PIPE)
     outs1, errs1 = process1.communicate()
