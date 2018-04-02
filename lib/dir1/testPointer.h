@@ -18,10 +18,10 @@ struct foo{
     int foo2;
 } ;
 
-typedef int bool;
+/*typedef int bool;
 #define true 1
 #define false 0
-
+*/
 int testPtr(char* ptr);
 
 int testStructPtr(struct foo *foo_ptr);
