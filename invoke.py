@@ -50,10 +50,13 @@ def invoke_klee():
 			outs1, errs1 = process1.communicate()
 #			print(errs1)
 			outs1=outs1.decode()
-			fd = open("temp.txt", 'w')
+			name = "temp"+str(i)+".txt"
+			fd = open(name, 'w')
 			fd.write(outs1)
 			fd.close()
-			inputArgs = getInputData()
+			inputArgs = getInputData(name)
+			print("input arguments:")
+			print(inputArgs)
 			input.append(inputArgs)
 			#replay tese case to get output
 			command2 = "make -s replay MAIN="
@@ -94,8 +97,8 @@ def invoke_klee():
 		print("************************** klee execution on " + file + " done")
 #		return
 
-def getInputData():
-	fd = open("temp.txt",'r')
+def getInputData(name):
+	fd = open(name,'r')
 	line = fd.readline()
 	objects = []
 	while line:

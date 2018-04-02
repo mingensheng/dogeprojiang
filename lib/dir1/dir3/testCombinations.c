@@ -29,7 +29,7 @@ int testCombo2(char a[], int b[], int* c)
 }
 
 int testBranch(int a, int b, char opt){
-    int output;
+    int output = 100;
     if(a%b){
         switch(opt)
         {
@@ -40,10 +40,10 @@ int testBranch(int a, int b, char opt){
                     output = 2;
                 break;
             case 'b':
-                if(a<b)
+                //if(a<b)
                     output = 3;
-                else
-                    output = 4;
+               /* else
+                    output = 4;*/
                 break;
             default:
                 output = 0;
@@ -54,15 +54,15 @@ int testBranch(int a, int b, char opt){
         {
             case 'a':
                 if(a>b)
-                    output = 5;
+                    output = 4;
                 else
-                    output = 6;
+                    output = 5;
                 break;
             case 'b':
                 if(a<b)
-                    output = 7;
+                    output = 6;
                 else
-                    output = 8;
+                    output = 7;
                 break;
             default:
                 output = 0;
