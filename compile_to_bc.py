@@ -30,6 +30,12 @@ if __name__ == "__main__":
     print("main driver file doesn't exist")
     sys.exit()
   
+  if not os.path.exists ("bcfiles"):
+    os.mkdir("bcfiles")
+  else:
+    shutil.rmtree("bcfiles")
+    os.mkdir("bcfiles")
+
   #remove old bc files
   clean_dir()
 
