@@ -79,8 +79,8 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                 function_call_string = str(func+"(")
                                                 for argument in arguments:
                                                     variable_type = argument.split(" ")[0]
+                                                    variable_name = argument.split(" ").pop()
                                                     if 'char' not in variable_type:
-                                                        variable_name = argument.split(" ").pop()
                                                         variable_name = variable_name.replace("*", "")
                                                         f1.write("      memcpy(&"+variable_name+", ptrs["+str(iterator)+"], size_array["+str(iterator)+"]);\n")
                                                     iterator = iterator + 1
