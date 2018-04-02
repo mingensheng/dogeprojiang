@@ -50,7 +50,7 @@ def invoke_klee():
 			outs1, errs1 = process1.communicate()
 #			print(errs1)
 			outs1=outs1.decode()
-			name = "temp"+str(i)+".txt"
+			name = "temp.txt"
 			fd = open(name, 'w')
 			fd.write(outs1)
 			fd.close()
