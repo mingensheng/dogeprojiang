@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import os, sys, fnmatch, re, csv, shutil
+import os, sys, fnmatch, re, csv, shutil, string
 
 
 def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file):
@@ -30,8 +30,7 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                         lines = f.readlines()
                                         first_line = lines[0].strip()
 
-                                        for itr in range(int(first_line[0])):
-
+                                        for itr in range(int(first_line)):
                                             #find everything inside the outter brackets as arguments
                                             m = re.search(r"\((.*?.*)\)", file_line)
                                             if m is not None:
@@ -60,11 +59,16 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                 f1.write("      //set up value array\n")
                                                 for _itr in range(arguments_num):
                                                     f1.write("      char* s"+ str(_itr) +"= (\""+lines[1+itr*(arguments_num+1)+_itr].strip()+"\");\n")
-                                                    hex_len = bytearray.fromhex(lines[1 + itr * (arguments_num+1) + _itr].strip()).__len__()
-                                                    f1.write("      value_array[" + str(_itr) + "] = new char[" + str(hex_len) + "];\n")
-                                                    f1.write("      size_array["+str(_itr)+"] = "+str(hex_len)+";\n")
-                                                    f1.write("      hex2bin(s" + str(_itr) + ", value_array[" + str(_itr) + "]"");\n")
-
+                                                    hex_s = lines[1+itr*(arguments_num+1)+_itr].strip()
+                                                    # print("hex_s: "+hex_s)
+                                                    #print("is it true %r" % all(c in string.hexdigits for c in hex_s))
+                                                    if (all(c in string.hexdigits for c in hex_s)) is True and len(hex_s) >= 2:
+                                                        hex_len = bytearray.fromhex(lines[1 + itr * (arguments_num+1) + _itr].strip()).__len__()
+                                                        f1.write("      value_array[" + str(_itr) + "] = new char[" + str(hex_len) + "];\n")
+                                                        f1.write("      size_array["+str(_itr)+"] = "+str(hex_len)+";\n")
+                                                        f1.write("      hex2bin(s" + str(_itr) + ", value_array[" + str(_itr) + "]"");\n")
+                                                    else:
+                                                        f1.write("      "+arguments[_itr]+" = \'"+hex_s+"\';\n")
 
                                                 f1 = open(decoder_file, 'a')
                                                 f1.write("      for(int i=0; i<"+str(arguments_num)+"; i++){\n")
@@ -74,14 +78,16 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                 iterator = 0;
                                                 function_call_string = str(func+"(")
                                                 for argument in arguments:
-                                                    variable_name = argument.split(" ").pop()
-                                                    variable_name = variable_name.replace("*", "")
-                                                    f1.write("      memcpy(&"+variable_name+", ptrs["+str(iterator)+"], size_array["+str(iterator)+"]);\n")
-                                                    iterator = iterator + 1
-                                                    if argument == arguments[-1]:
-                                                        function_call_string+=(variable_name+")")
-                                                    else:
-                                                        function_call_string += (variable_name.replace("[]", "") + ", ")
+                                                    variable_type = argument.split(" ")[0]
+                                                    if 'char' not in variable_type:
+                                                        variable_name = argument.split(" ").pop()
+                                                        variable_name = variable_name.replace("*", "")
+                                                        f1.write("      memcpy(&"+variable_name+", ptrs["+str(iterator)+"], size_array["+str(iterator)+"]);\n")
+                                                        iterator = iterator + 1
+                                                        if argument == arguments[-1]:
+                                                            function_call_string+=(variable_name+")")
+                                                        else:
+                                                            function_call_string += (variable_name.replace("[]", "") + ", ")
                                                 f1.write("  }\n")
                                                 f1.write("};\n")
                                                 f1.write("TEST_F("+func+str(itr)+", gtest) {\n")
