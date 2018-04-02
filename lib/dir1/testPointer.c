@@ -10,12 +10,12 @@
 
 int testPtr(char* ptr)
 {
-    if (ptr != NULL)
+    if (ptr[0] == 'a')
         return 1;
     else
         return 0;
 }
-
+/*
 int testStructPtr(struct foo *foo_ptr)
 {
     int c = foo_ptr->foo1 + foo_ptr->foo2;
@@ -24,12 +24,22 @@ int testStructPtr(struct foo *foo_ptr)
     else
         return -1;
 }
-
-int testFuncPtr (int a, function call_back, int b)
+*/
+int testSwitch (int a, int b)
 {
-    int c = a + b;
-    if (c > 0)
-        return call_back(a, b);
-    else
-        return -1;
+    int output = 10;
+    switch(a%b) {
+        case 0 :
+            output = 0;
+            break;
+        case 1 :
+            output = 1;
+            break;
+        case 2 :
+            output = 2;
+            break;
+        default :
+        output = 10;
+    }
+    return output;
 }

@@ -28,15 +28,58 @@ int testCombo2(char a[], int b[], int* c)
     return index;
 }
 
-float testCombo3(struct foo *fooPtr, function func)
-{
-    float ret = fooPtr->foo1 + fooPtr->foo2/100;
-    if (func(fooPtr->foo1, fooPtr->foo2))
-        return ret;
-    else
-        return -1;
+int testBranch(int a, int b, char opt){
+    int output;
+    if(a%b){
+        switch(opt)
+        {
+            case 'a':
+                if(a>b)
+                    output = 1;
+                else
+                    output = 2;
+                break;
+            case 'b':
+                if(a<b)
+                    output = 3;
+                else
+                    output = 4;
+                break;
+            default:
+                output = 0;
+        }
+    }
+    else{
+        switch(opt)
+        {
+            case 'a':
+                if(a>b)
+                    output = 5;
+                else
+                    output = 6;
+                break;
+            case 'b':
+                if(a<b)
+                    output = 7;
+                else
+                    output = 8;
+                break;
+            default:
+                output = 0;
+        }
+    }
+    return output;
 }
 
+int testCombo3(struct foo *fooPtr)
+{
+    int ret = fooPtr->foo1 + fooPtr->foo2;
+    if (fooPtr->foo1 > fooPtr->foo2)
+        return 1;
+    else
+        return 0;
+}
+/*
 char* testCombo4(void* ptr)
 {
     if (ptr == NULL) return NULL;
@@ -53,25 +96,20 @@ char* testCombo4(void* ptr)
     }
     return newPtr;
 }
-
-struct foo* testCombo5(struct foo *fooPtr)
+*/
+int testCombo5(struct foo *fooPtr)
 {
-    if (fooPtr == NULL)
-        return NULL;
-    
-    struct foo* cp;
-    cp = malloc(sizeof(struct foo));
     if (fooPtr->foo1 * fooPtr->foo2 < 100){
-        cp->foo1 = fooPtr->foo1 * 2;
-        cp->foo2 = fooPtr->foo2 * 2;
-        cp->func_pointer = fooPtr->func_pointer;
+        return 0;
     }
-    else{
-        cp->foo1 = fooPtr->foo1 - 10;
-        cp->foo2 = fooPtr->foo2 - 10;
-        cp->func_pointer = fooPtr->func_pointer;
+    else if (fooPtr->foo1 * fooPtr->foo2 < 500){
+        return 1;
     }
-    return cp;
+    else if (fooPtr->foo1 * fooPtr->foo2 < 1000){
+        return 2;
+    }
+    else
+        return 3;
 }
 
 char* testCombo6(char a[], float b, function func)
@@ -87,7 +125,7 @@ char* testCombo6(char a[], float b, function func)
     }
     return ptr;
 }
-
+/*
 int testCombo7(int a, char* b, char c[], struct foo *fooPtr)
 {
     if(fooPtr->func_pointer == NULL) return -1;
@@ -101,7 +139,7 @@ int testCombo7(int a, char* b, char c[], struct foo *fooPtr)
     }
     return total;
 }
-
+*/
 int testCombo8(void* ptr, char* b)
 {
     char *charPtr = (char *)ptr;
@@ -110,7 +148,7 @@ int testCombo8(void* ptr, char* b)
     else
         return 0;
 }
-
+/*
 int testCombo9(function func, void* ptr)
 {
     if (ptr == NULL) return -1;
@@ -118,4 +156,4 @@ int testCombo9(function func, void* ptr)
     struct foo* fooPtr = (struct foo *)ptr;
     return func(fooPtr->foo1, fooPtr->foo2);
 }
-
+*/

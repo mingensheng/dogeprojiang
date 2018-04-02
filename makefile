@@ -20,11 +20,11 @@ $(TARGET): ./main_driver_file/$(TARGET).c
 	$(CC) $(KLEEINC) $(CFLAGS) ./main_driver_file/$(TARGET).c
 link: 
 	llvm-link -o ${MAIN}c.bc $(LFLAGS) ${MAIN}.bc
-	cp ${MAIN}c.bc ./bcfiles
+	cp ${MAIN}c.bc ./bcfiles/.
 	rm ${MAIN}.bc ${MAIN}c.bc
 
 replay:
-	$(RPCC) $(RPINC) $(RPLFLAG) $(LIB) $(MAIN).c -lkleeRuntest -lm
+	$(RPCC) $(RPINC) $(RPLFLAG) $(LIB) ./main_driver_file/$(MAIN).c -lkleeRuntest -lm
 
 clean:
 	find . -name "*.bc" -type f -delete

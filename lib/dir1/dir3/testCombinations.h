@@ -12,17 +12,19 @@
 #include <stdio.h>
 #include "../testPointer.h"
 
-int max=10;
+//int max=10;
 
 void testCombo1(int a, float b, char c);
 
 int testCombo2(char a[], int b[], int* c);
 
-float testCombo3(struct foo *fooPtr, function func);
+int testCombo3(struct foo *fooPtr);
+
+int testBranch(int a, int b, char opt);
 
 char* testCombo4(void* ptr);
 
-struct foo* testCombo5(struct foo *fooPtr);
+int testCombo5(struct foo *fooPtr);
 
 char* testCombo6(char a[], float b, function func);
 

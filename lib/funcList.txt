@@ -1,5 +1,7 @@
 testFloat
-testDouble
 testPtr
 testInt
 testChar
+testCombo5
+testBranch
+testCombo3

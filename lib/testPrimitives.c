@@ -32,7 +32,7 @@ int testChar(char a)
 
 int testFloat(float a)
 {
-    if (a*5 > 100)
+    if (a > 100.0)
         return 1;
     else
         return 0;
@@ -41,7 +41,7 @@ int testFloat(float a)
 char testDouble(double a)
 {
     char ret = 't';
-    if (a != 20)
+    if (a >= 20)
         ret = 'f';
     return ret;
 }

@@ -2,3 +2,6 @@
 .idea
 *.bc
 .DS_Store
+main_driver_file/*
+IOfiles/*
+bcfiles/*

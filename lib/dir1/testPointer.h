@@ -16,13 +16,16 @@ typedef int (*function)(int a, int b);
 struct foo{
     int foo1;
     int foo2;
-    function func_pointer;
 } ;
+
+typedef int bool;
+#define true 1
+#define false 0
 
 int testPtr(char* ptr);
 
 int testStructPtr(struct foo *foo_ptr);
 
-int testFuncPtr (int a, function call_back, int b);
+int testSwitch (int a, int b);
 
 #endif /* testPointer_h */
