@@ -65,6 +65,7 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                     #if (all(c in string.hexdigits for c in hex_s)) is True and len(hex_s) >= 2:
                                                     variable_type = arguments[_itr].split(" ")[0]
                                                     if 'char' not in variable_type:
+
                                                         hex_len = bytearray.fromhex(lines[1 + itr * (arguments_num+1) + _itr].strip()).__len__()
                                                         f1.write("      value_array[" + str(_itr) + "] = new char[" + str(hex_len) + "];\n")
                                                         f1.write("      size_array["+str(_itr)+"] = "+str(hex_len)+";\n")
@@ -108,22 +109,22 @@ if __name__ == "__main__":
         shutil.rmtree("gtest")
         os.mkdir("gtest")
 
-    decoder_file = os.path.join('gtest', "gtest_unit_tests.cpp")
-    f2 = open(decoder_file, 'w')
-    f2.write("#include \"gtest/gtest.h\"\n")
-    f2.write("#include \"../decoder.cpp\"\n")
-    f2.write("#include <string>\n")
-    f2.close()
     IOfiles_directory = os.path.join('IOfiles')
 
     for func in func_list:
         func = func.rstrip();
         output_file = os.path.join('main_driver_file', func+"_main_driver_file.c")
+        decoder_file = os.path.join('gtest', func+"_gtest_unit_tests.cpp")
+        f2 = open(decoder_file, 'w')
+        f2.write("#include \"gtest/gtest.h\"\n")
+        f2.write("#include \"../decoder.cpp\"\n")
+        f2.write("#include <string>\n")
+        f2.close()
         find_Write_Out(os.getcwd(), func, "*.h", IOfiles_directory, decoder_file)
 
 
-    f2 = open(decoder_file, 'a')
-    f2.write("\n\n\nint main(int argc, char **argv) {\n")
-    f2.write("  ::testing::InitGoogleTest(&argc, argv);\n")
-    f2.write("  return RUN_ALL_TESTS();\n}\n")
-    f2.close()
+        f2 = open(decoder_file, 'a')
+        f2.write("\n\n\nint main(int argc, char **argv) {\n")
+        f2.write("  ::testing::InitGoogleTest(&argc, argv);\n")
+        f2.write("  return RUN_ALL_TESTS();\n}\n")
+        f2.close()
