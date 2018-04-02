@@ -5,3 +5,5 @@
 main_driver_file/*
 IOfiles/*
 bcfiles/*
+gtest/*
+.out
