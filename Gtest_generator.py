@@ -117,6 +117,12 @@ def find_Write_Out(directory, func, filePattern, IOfiles_directory, decoder_file
                                                         else:
                                                             function_call_string += ("& " +variable_name.replace("[]", "") + ", ")
 
+                                                if 'Branch' in func:
+                                                    for argument in arguments:
+                                                        argument_name = argument.split(" ")[-1]
+                                                        argument_name = argument_name.replace("*", "")
+                                                        f1.write("      std::cout<<\""+argument_name+": \"<<"+argument_name+"<<\"\\n\";"+"\n")
+
                                                 f1.write("  }\n")
                                                 f1.write("};\n")
                                                 f1.write("TEST_F("+func+str(itr)+", gtest) {\n")
