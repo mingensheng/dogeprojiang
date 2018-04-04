@@ -17,6 +17,13 @@ def invoke_klee():
 		shutil.rmtree("IOfiles")
 		os.mkdir("IOfiles")	
 
+	print("set LD_LIBRARY_PATH")
+	command1 = "export LD_LIBRARY_PATH=/home/klee/klee_nuild/klee/lib"
+	process1 = Popen(command1, shell=True, stdout=PIPE)
+	outs, errs = process1.communicate()
+	print(outs)
+	print(errs)
+
 	for file in bcfiles:
 		print(">>>>>>>>>>>>>>>>>>>>>>>>>> invoke klee on " + file)
 		# use the aliased command instead of the alias "klee"
@@ -24,23 +31,23 @@ def invoke_klee():
 #		command = "klee " + file
 		process = Popen(command, shell=True, stdout=PIPE)
 		outs, errs = process.communicate()
-#		print(outs)
-		print("$$$$$$$$$$$$$$$$$$$MY KLEE ERROR:")
+		print(outs)
 		print(errs)
 		
 		testcases = []
 		filepath, filename = os.path.split(file)
 #		print(filepath)
-		filepath = filepath + '/klee-last'
-#		print(filepath)
-		for path, dir, files in os.walk(os.path.abspath(filepath)):
+		symfilepath = filepath + '/klee-last'
+		#find symlink target of klee-last
+		targetDir = os.readlink(symfilepath)
+		for path, dir, files in os.walk(os.path.abspath(targetDir)):
 			for filename in fnmatch.filter(files, "*.ktest"):
 				testcases.append(os.path.join(path, filename))
 #		print(testcases)		
-		print(">> extract input-output pairs")
+
 		filepath, filename = os.path.split(file)
 		filename = str.split(filename, '.')[0][0:-1]
-		print("filename: " + filename)
+		print(">> extract input-output pairs to filename: " + filename)
 		# read test case input
 		input=[]
 		output=[]
@@ -55,8 +62,8 @@ def invoke_klee():
 			fd.write(outs1)
 			fd.close()
 			inputArgs = getInputData(name)
-			print("input arguments:")
-			print(inputArgs)
+#			print("input arguments:")
+#			print(inputArgs)
 			input.append(inputArgs)
 			#replay tese case to get output
 			command2 = "make -s replay MAIN="
@@ -67,18 +74,17 @@ def invoke_klee():
 			print(command2)	
 			process2 = Popen(command2, shell=True, stdout=PIPE, stderr=PIPE)
 			outs, errs = process2.communicate()
-#			print("direct outs:")
-#			print(outs)
+			print(outs)
+			print(errs)
 			outs = outs.decode()
 #			print("raw:"+outs)
 			testOut = getOutputData(outs)
-#			print(errs)
-			print("after:::"+testOut)
+#			print("after:::"+testOut)
 			output.append(testOut)
 
-#		print input
 		print(">> input-output pairs num %d"%len(testcases))
 		outFilename = "IOfiles/" + filename + ".txt"
+		print(">> input-output paris are saved in "+ outFilename)
 
 		fd = open(outFilename, 'w')
 		fd.write(str(len(testcases)) + '\n')
